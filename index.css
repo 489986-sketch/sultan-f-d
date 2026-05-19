@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+    /* Reserve the scrollbar gutter so layout doesn't shift when content height changes */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply bg-brand-paper text-brand-ink font-sans;
+    font-feature-settings: 'ss01' 1, 'cv11' 1, 'cv02' 1;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Defensive: nothing should ever exceed the viewport width */
+  img, video, svg, canvas {
+    max-width: 100%;
+  }
+
+  ::selection {
+    background-color: #0e5c3a;
+    color: #ffffff;
+  }
+
+  a, button {
+    -webkit-tap-highlight-color: rgba(14, 92, 58, 0.12);
+  }
+
+  /* Subtle neutral scrollbar (was green-tinted, which looked like a misplaced green strip) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(10, 10, 10, 0.18);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(10, 10, 10, 0.32);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  /* Firefox */
+  html {
+    scrollbar-color: rgba(10, 10, 10, 0.18) transparent;
+    scrollbar-width: thin;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .container-px {
+    @apply px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Word-by-word reveal */
+  .word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    line-height: 1;
+  }
+  .word-mask > span {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  /* Hairline divider */
+  .hairline {
+    background: linear-gradient(to right, transparent, #e8e8e3 20%, #e8e8e3 80%, transparent);
+    height: 1px;
+    width: 100%;
+  }
+
+  /* Compressed display utility: extra-tight tracking + display font */
+  .display-mega {
+    @apply font-display font-extrabold tracking-mega leading-[0.92];
+  }
+  .display-bold {
+    @apply font-display font-bold tracking-display leading-[0.95];
+  }
+}
